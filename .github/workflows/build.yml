@@ -7,22 +7,23 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Get the sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - name: Fetch all tags and branches
         run: git fetch --prune --unshallow
       - name: Install .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4
         with:
           # .NET 5 required for GitVersion
           dotnet-version: | 
             5.x
             6.x
             7.x
+            8.x
       - name: Build
         run: .\build.ps1
         shell: powershell
       - name: Publish NuGet package as build artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # v4
         with:
           name: NuGet Package
           path: ./BuildArtifacts/Packages/NuGet/
@@ -33,14 +34,14 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Get the sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - name: Download build artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@7a1cd3216ca9260cd8022db641d960b1db4d1be4 # v4
         with:
           name: NuGet Package
           path: ./BuildArtifacts/Packages/NuGet
       - name: Install .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4
         with:
           dotnet-version: | 
             6.x
